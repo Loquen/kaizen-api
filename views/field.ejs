@@ -17,13 +17,15 @@
           onfield sessions until the health order changes.
         </p>
       </div>
-      <form action="" class="field-form">
-        <input type="text" placeholder="Name">
-        <input type="email" placeholder="Email" >
+      <form action="/api/field" method="POST" class="field-form">
+        <input type="text" placeholder="Name" name="name">
+        <input type="email" placeholder="Email" name="email">
         <textarea 
           rows="6" 
           cols="50"
-        >Tell me about yourself...</textarea>
+          name="about"
+          placeholder="Tell me about yourself..."
+        ></textarea>
         <input class="view-button form-submit" type="submit" value="Submit">
       </form>
     </div>

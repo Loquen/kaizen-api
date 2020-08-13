@@ -36,12 +36,13 @@
           players.
         </p>
       </div>
-      <form action="" class="kaizen-form">
-        <input type="text" placeholder="Name">
-        <input type="email" placeholder="Email" >
+      <form action="/api/kaizen" method="POST" class="kaizen-form">
+        <input type="text" placeholder="Name" name="name">
+        <input type="email" placeholder="Email" name="email">
         <textarea 
           rows="6" 
           cols="50"
+          name="about"
         >Tell me about yourself...</textarea>
         <input class="view-button form-submit" type="submit" value="Submit">
       </form>

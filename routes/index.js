@@ -21,4 +21,8 @@ router.get('/field', (req, res, next) => {
   res.render('field');
 });
 
+router.get('/success', (req, res, next) => {
+  res.render('success');
+})
+
 module.exports = router;
