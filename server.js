@@ -8,9 +8,10 @@ var nodemailer = require('nodemailer');
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
 
+require('dotenv').config();
+
 var app = express();
 
-require('dotenv').config();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
