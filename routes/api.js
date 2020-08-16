@@ -6,13 +6,6 @@ const { OAuth2 } = google.auth;
 
 const OAUTH_PLAYGROUND = 'https://developers.google.com/oauthplayground';
 
-// const {
-//   MAILING_SERVICE_CLIENT_ID,
-//   MAILING_SERVICE_CLIENT_SECRET,
-//   MAILING_SERVICE_REFRESH_TOKEN,
-//   SENDER_EMAIL_ADDRESS
-// } = process.env;
-
 const Mailing = {};
 
 const oauth2Client = new OAuth2(
@@ -21,11 +14,10 @@ const oauth2Client = new OAuth2(
   OAUTH_PLAYGROUND
 );
 
-/* POST route for Kaizen form. */
+/* POST route for Kaizen form */
 router.post('/kaizen', async (req, res, next) => {
-  // console.log(process.env.SENDER_EMAIL_ADDRESS);
   try {
-    await sendEmail(req.body);
+    await sendEmail(req.body, 'Kaizen Academy');
     res.redirect('/success');
   } catch (e) {
     console.log(e);
@@ -33,12 +25,18 @@ router.post('/kaizen', async (req, res, next) => {
   }
 });
 
-router.post('/field', (req, res, next) => {
-  console.log(req.body);
-  res.redirect('/success');
+/* POST route for Field form */
+router.post('/field', async (req, res, next) => {
+  try {
+    await sendEmail(req.body, 'Field Sessions');
+    res.redirect('/success');
+  } catch (e) {
+    console.log(e);
+    res.redirect('/field');
+  }
 });
 
-async function sendEmail(form) {
+function sendEmail(form, requestType) {
   // Set Up OAuth Credentials
   oauth2Client.setCredentials({
     refresh_token: process.env.MAILING_SERVICE_REFRESH_TOKEN
@@ -64,9 +62,9 @@ async function sendEmail(form) {
   let message = {
     from: form.email, // for Google Auth
     to: process.env.SENDER_EMAIL_ADDRESS, // list of receivers
-    subject: form.name, // Subject line
+    subject: `${requestType.toUpperCase()}: ${form.name}, ${form.email}`, // Subject line
     generateTextFromHTML: true,
-    html: form.about + '\n' + form.email, // plain text body
+    html: form.about, // plain text body
   }
 
   // Deliver the message object using the sendMail() method of transporter
