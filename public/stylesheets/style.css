@@ -143,6 +143,10 @@ a:hover, a:hover:visited {
   font-weight: bold;
 }
 
+.view-button a {
+  color: white;
+}
+
 .view-button.hero-button {
   background-color: #ff9554;
 }
